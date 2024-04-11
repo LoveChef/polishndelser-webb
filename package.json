@@ -1,24 +1,8 @@
 {
-  "name": "nodejs-routing",
-  "version": "1.0.0",
-  "description": "Complete Node.js Guide",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
-    "start-server": "node app.js"
-  },
-  "author": "Läraren",
-  "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^3.0.1"
-  },
   "dependencies": {
-    "body-parser": "^1.18.3",
+    "cross-fetch": "^4.0.0",
     "ejs": "^3.1.9",
-    "express": "^4.16.3",
-    "fetch": "^1.1.0",
-    "node-fetch": "^2.7.0",
-    "npm": "^10.5.2"
+    "express": "^4.19.2",
+    "node-fetch": "^3.3.2"
   }
 }

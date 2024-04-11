@@ -45,7 +45,7 @@ body {
   }
   
   .footer {
-    background-color: #f0f0f0;
+    background-color: #131314;
     padding: 1rem;
     text-align: center;
     position: fixed;
@@ -56,7 +56,7 @@ body {
     border-top: solid rgb(47, 47, 47);
     align-items: left;
   }
-  
+
   .footer p {
     text-align: left;
     margin: 0;
@@ -64,6 +64,10 @@ body {
     color: white;
   }
   
+.events {
+  margin-bottom: 50px
+}
+
   #title-p {
     font-weight: bold;
   }
