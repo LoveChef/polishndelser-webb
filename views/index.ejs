@@ -1,16 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <!--  <%- include('./partials/head') %>  -->
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link href="css/style.css" rel="stylesheet" type="text/css">
+  <title>Polishändelser</title>
 </head>
+<header class="App-header">
+  <h1 id="head-p">Polishändelser</h1>
+</header>
 <body>
-  <p class="box2">Sida 1</p>
-  
-  <a href="/nextpage" alt="next">Next page</a>
-  
+  <div id="events-container">
+    <% if (events) { %>
+      <% events.forEach(event => { %>
+        <div class="event">
+          <h3><%= event.name %></h3>
+          <p><%= event.summary %></p>
+        </div>
+      <% }); %>
+    <% } else { %>
+      <p>Hämtar händelser...</p>
+    <% } %>
+  </div>
+
+  <footer class="footer">
+    <p id="title-p">Love Ekelöw</p>
+    <p>All rights reserved</p>
+    <p>Ha en trevlig {weekday}!</p>
+  </footer>
 </body>
 </html>
