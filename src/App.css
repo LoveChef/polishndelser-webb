@@ -5,12 +5,14 @@ body {
   overflow-x: hidden; 
 }
 
-h1 {
+#title {
   margin: 0;
-  margin-top: 3%;
-  font-family: Helvetica;
-  font-size: 50px;
+  margin-top: 20px;
+  font-family: Poppins;
+  font-size: 40px;
   color: white;
+  text-align: left;
+  margin-left: 80px
 }
 
 .App-logo {
@@ -50,6 +52,7 @@ h1 {
   overflow-x: hidden;
   background-color: #212121;
   border-top: solid rgb(47, 47, 47);
+  align-items: left;
 }
 
 .footer p {
@@ -57,9 +60,26 @@ h1 {
   margin: 0;
   margin-top: 5px;
   color: white;
+  margin-left: 80px;
 }
 
 #title-p {
   font-weight: bold;
   color: #5250b4;
+}
+
+#bottomimg {
+  position: absolute;
+  width:4.5%;
+  height:80%;
+  bottom: 10px;
+  left: 7px;
+}
+
+#topimg {
+  position: absolute;
+  width:4%;
+  height:8%;
+  top: 10px;
+  left: 7px;
 }
