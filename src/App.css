@@ -2,11 +2,12 @@ body {
   background-color: #212121;
   align-items: center;
   text-align: center;
+  overflow-x: hidden; 
 }
 
 h1 {
   margin: 0;
-  margin-top: 10%;
+  margin-top: 3%;
   font-family: Helvetica;
   font-size: 50px;
   color: white;
@@ -21,7 +22,7 @@ h1 {
 .button-events {
   font-weight: bold;
   font-family: Helvetica;
-  margin-top: 150px;
+  margin-top: 350px;
   background-color: rgba(100,77,237,0.08);
   width: 150px;
   height: 50px;
@@ -32,4 +33,33 @@ h1 {
   transition: all 0.2s linear;
   color: #6361D9;
   font-size: 17px;
+}
+
+.button-events:hover {
+  background-color: rgba(74, 57, 170, 0.08);
+  color: #5250b4;
+}
+
+.footer {
+  background-color: #f0f0f0;
+  padding: 1rem;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: #212121;
+  border-top: solid rgb(47, 47, 47);
+}
+
+.footer p {
+  text-align: left;
+  margin: 0;
+  margin-top: 5px;
+  color: white;
+}
+
+#title-p {
+  font-weight: bold;
+  color: #5250b4;
 }
