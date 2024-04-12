@@ -8,36 +8,29 @@
   <title>Polishändelser</title>
 </head>
 <header class="App-header">
-  <h1 id="head-p">Polishändelser</h1>
+
 </header>
 <body>
-
-  <div class="event_container">
+  <p id="head-p">Polishändelser</p>
+  <div id="event_container">
     <p id="titel-event">Sortera händelser</p>
-    <button class="button-events" type="submit" form="show-events-form">
+    <button id="button-events" type="submit" form="show-events-form">
       <span>Visa</span>
     </button>
   </div>
-  <form id="show-events-form" action="/show-events" method="POST" style="display: none;"></form> </div>
 
-  <div id="events"><% if (showEvents) { %>
-      <% if (events) { %>
-        <% events.forEach(event => { %>
-          <div class="event">
-            <h3><%= event.name %></h3>
-            <p><%= event.summary %></p>
-          </div>
-        <% }); %>
-      <% } else { %>
-        <p>Hämtar händelser...</p>
-      <% } %>
-    </div>
-  <% } %>
-
-  <footer class="footer">
+  <div class="footer">
     <p id="title-p">Love Ekelöw</p>
     <p>All rights reserved</p>
     <p>Ha en trevlig {weekday}!</p>
-  </footer>
+  </div>
+  <script>
+    const hideButton = document.getElementById("button-events");
+    const myDiv = document.getElementById("event_container");
+
+    hideButton.addEventListener("click", function() {
+      myDiv.style.display = "none";
+    });
+  </script>
 </body>
 </html>

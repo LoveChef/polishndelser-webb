@@ -6,7 +6,7 @@ body {
     justify-content: center;  /* Center elements horizontally */
     align-items: center;  /* Center elements vertically (optional) */
   }
-  
+
   #title {
     margin: 0;
     margin-top: 30px;
@@ -14,10 +14,12 @@ body {
     color: #4f5251;
     text-align: left;
     margin-left: 80px;
+    position: absolute;
+    z-index: 10;
   }
   
   
-  .button-events {
+  #button-events {
     font-weight: bold;
     background-color: #131314;
     width: 80px;
@@ -32,10 +34,18 @@ body {
     margin-top: 140px;
   }
   
-  .button-events:hover {
+  #button-events:hover {
     background-color: rgb(36, 38, 39);
     color: rgb(141, 141, 141);
   
+  }
+  
+  #events {
+    z-index: -1;
+    position: fixed;
+    top: 450px;
+    width: 640px;
+    margin-left: 30px;
   }
   
   .footer-container {  /* New container element */
@@ -52,7 +62,6 @@ body {
     bottom: 0;
     width: 33%;
     overflow-x: hidden;
-    background-color: transparent;
     border-top: solid rgb(47, 47, 47);
     align-items: left;
   }
@@ -64,9 +73,6 @@ body {
     color: white;
   }
   
-.events {
-  margin-bottom: 50px
-}
 
   #title-p {
     font-weight: bold;
@@ -93,6 +99,8 @@ body {
   }
   
   #head-p {
+    font-family: Helvetica;
+    font-weight: bold;
     position: relative;
     display: inline-block;
     color: transparent;
@@ -117,7 +125,7 @@ body {
     font-size: 40px;
   }
   
-  .event_container {
+  #event_container {
     text-align: center;
     justify-content: center;
     height: 250px;
@@ -126,6 +134,7 @@ body {
     background-color: #1e1f20;
     position: absolute;
     top: 400px;
+    z-index: 1;
   }
   
   #titel-event {
