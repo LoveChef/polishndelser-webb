@@ -18,18 +18,34 @@
       <span>Visa</span>
     </button>
   </div>
+  <div id="events">
+    <% if (events) { %>
+      <% events.forEach(event => { %>
+        <div class="event">
+          <p id="title-event"><%= event.name %></p>
+          <p id="summary-event"><%= event.summary %></p>
+          <p id="datetime-event"><%= event.datetime %></p>
+        </div>
+      <% }); %>
+    <% } else { %>
+      <p>Hämtar händelser...</p>
+    <% } %>
+  </div>
+
 
   <div class="footer">
     <p id="title-p">Love Ekelöw</p>
     <p>All rights reserved</p>
-    <p>Ha en trevlig {weekday}!</p>
+    <p>Ha en trevlig <script>document.write(new Date().toLocaleDateString('sv-SE', { weekday: 'long' }))</script>!</p>
   </div>
   <script>
     const hideButton = document.getElementById("button-events");
     const myDiv = document.getElementById("event_container");
+    const myDiv2 = document.getElementById("events");
 
     hideButton.addEventListener("click", function() {
       myDiv.style.display = "none";
+      myDiv2.style.display = "block";
     });
   </script>
 </body>
