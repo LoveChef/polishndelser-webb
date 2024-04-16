@@ -29,7 +29,7 @@
           <span id="title-event"><%= event.emoji %><%= event.name %></span>
           <p id="list-event"><%= event.summary %></p>
           <p id="list-event"><%= event.datetime %></p>
-          <p id="list-event"><%= event.location.name %><a id="karta"href="#" onclick="oppnaGoogleMaps('<%=event.location.gps%>')">Se på kartan</a></p>
+          <p id="list-event"><%= event.location.name %><a id="karta" href="#" onclick="oppnaGoogleMaps('<%=event.location.gps%>')">Se på kartan</a></p>
           <a id="karta" href="https://polisen.se/<%= event.url %>">Läs mer</a>
         </div>
       <% }); %>
@@ -53,19 +53,17 @@
       myDiv.style.display = "none";
       myDiv2.style.display = "block";
     });
-    
-    window.addEventListener('load', function() {
-    setTimeout(function() {
-      document.getElementById('head-p').style.backgroundPosition = '0 0';
-    }, 100);
-  });
 
-  window.addEventListener('load', function() {
+    window.addEventListener('load', function() {
     setTimeout(function() {
       document.getElementById('head-p').style.backgroundPosition = '0 0';
       document.getElementById('under-p').style.backgroundPosition = '100% 0';
     }, 10);
   });
+  function oppnaGoogleMaps(gpsCoordinates) {
+    const googleMapsUrl = `https://www.google.com/maps/@${gpsCoordinates},14z?entry=ttu`;
+    window.location.href = googleMapsUrl;
+  }
   </script>
 </body>
 </html>
