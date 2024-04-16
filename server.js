@@ -35,16 +35,52 @@ app.use(express.static(__dirname + '/public'));
       // Add emoji based on event type (Unicode characters)
       switch (event.type) {
         case 'Rån':
-          event.emoji = '';
+          event.emoji = '🔫';
+          break;
+        case 'Trafikkontroll':
+          event.emoji = '🚓';
+          break;
+        case 'Stöld':
+          event.emoji = '🕶️';
+          break;
+        case 'Arbetsplatsolycka':
+          event.emoji = '🚧';
+          break;
+        case 'Rattfylleri':
+          event.emoji = '🍻';
+          break;
+        case 'Sammanfattning natt':
+          event.emoji = '📝';
+          break;
+        case 'Skadegörelse':
+          event.emoji = '🚯';
           break;
         case 'Trafikolycka':
           event.emoji = '🚗';
+          break;
+        case 'Övrigt':
+          event.emoji = '⚒️';
+          break;
+        case 'Mord':
+          event.emoji = '🩸';
+          break;
+        case 'Slagsmål':
+          event.emoji = '🛡️';
           break;
         case 'Brand':
           event.emoji = '🔥';
           break;
         case 'Inbrott':
-          event.emoji = '';
+          event.emoji = '🔒';
+          break;
+        case 'Misshandel':
+          event.emoji = '🤛';
+          break;
+        case 'Vapenlagen':
+          event.emoji = '🔫';
+          break;
+        case 'Skottlossning':
+          event.emoji = '🔫';
           break;
         default:
           event.emoji = '🚨';
@@ -82,16 +118,52 @@ app.post('/show-events', async (req, res) => { // Handle button click
         // Add emoji based on event type (Unicode characters)
         switch (event.type) {
           case 'Rån':
-            event.emoji = '';
+            event.emoji = '🔫';
+            break;
+          case 'Trafikkontroll':
+            event.emoji = '🚓';
+            break;
+          case 'Stöld':
+            event.emoji = '🕶️';
+            break;
+          case 'Arbetsplatsolycka':
+            event.emoji = '🚧';
+            break;
+          case 'Rattfylleri':
+            event.emoji = '🍻';
+            break;
+          case 'Sammanfattning natt':
+            event.emoji = '📝';
+            break;
+          case 'Skadegörelse':
+            event.emoji = '🚯';
             break;
           case 'Trafikolycka':
             event.emoji = '🚗';
+            break;
+          case 'Övrigt':
+            event.emoji = '⚒️';
+            break;
+          case 'Mord':
+            event.emoji = '🩸';
+            break;
+          case 'Slagsmål':
+            event.emoji = '🛡️';
             break;
           case 'Brand':
             event.emoji = '🔥';
             break;
           case 'Inbrott':
-            event.emoji = '';
+            event.emoji = '🔒';
+            break;
+          case 'Misshandel':
+            event.emoji = '🤛';
+            break;
+          case 'Vapenlagen':
+            event.emoji = '🔫';
+            break;
+          case 'Skottlossning':
+            event.emoji = '🔫';
             break;
           default:
             event.emoji = '🚨';

@@ -5,13 +5,17 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="css/style.css" rel="stylesheet" type="text/css">
+  <link rel="icon" href="icon.png" type="image/x-icon"/>
   <title>Polishändelser</title>
 </head>
 <header class="App-header">
 
 </header>
 <body>
+  <div class="topp">
   <p id="head-p">Polishändelser</p>
+  <p id="under-p">Håll dig uppdaterad om händelser kring dig!</p>
+</div>
   <div id="event_container">
     <p id="titel-event">Sortera händelser</p>
     <button id="button-events" type="submit" form="show-events-form">
@@ -23,10 +27,10 @@
       <% events.forEach(event => { %>
         <div class="event">
           <span id="title-event"><%= event.emoji %><%= event.name %></span>
-          <p id="summary-event"><%= event.summary %></p>
-          <p id="datetime-event"><%= event.datetime %></p>
-          <p id="location-event"><%= event.location.name %></p>
-          <a href="https://polisen.se/<%= event.url %>">Läs mer</a>
+          <p id="list-event"><%= event.summary %></p>
+          <p id="list-event"><%= event.datetime %></p>
+          <p id="list-event"><%= event.location.name %><a id="karta"href="#" onclick="oppnaGoogleMaps('<%=event.location.gps%>')">Se på kartan</a></p>
+          <a id="karta" href="https://polisen.se/<%= event.url %>">Läs mer</a>
         </div>
       <% }); %>
     <% } else { %>
@@ -44,11 +48,24 @@
     const hideButton = document.getElementById("button-events");
     const myDiv = document.getElementById("event_container");
     const myDiv2 = document.getElementById("events");
-
+    
     hideButton.addEventListener("click", function() {
       myDiv.style.display = "none";
       myDiv2.style.display = "block";
     });
+    
+    window.addEventListener('load', function() {
+    setTimeout(function() {
+      document.getElementById('head-p').style.backgroundPosition = '0 0';
+    }, 100);
+  });
+
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      document.getElementById('head-p').style.backgroundPosition = '0 0';
+      document.getElementById('under-p').style.backgroundPosition = '100% 0';
+    }, 10);
+  });
   </script>
 </body>
 </html>
