@@ -22,9 +22,11 @@
     <% if (events) { %>
       <% events.forEach(event => { %>
         <div class="event">
-          <p id="title-event"><%= event.name %></p>
+          <span id="title-event"><%= event.emoji %><%= event.name %></span>
           <p id="summary-event"><%= event.summary %></p>
           <p id="datetime-event"><%= event.datetime %></p>
+          <p id="location-event"><%= event.location.name %></p>
+          <a href="https://polisen.se/<%= event.url %>">Läs mer</a>
         </div>
       <% }); %>
     <% } else { %>

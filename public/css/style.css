@@ -5,6 +5,7 @@ body {
     display: flex;  /* Use flexbox for centering */
     justify-content: center;  /* Center elements horizontally */
     align-items: center;  /* Center elements vertically (optional) */
+    margin: 0;
   }
 
   #title {
@@ -73,39 +74,39 @@ body {
   background-color: rgb(141, 141, 141);
 }
 
+p {
+  margin-left: 12px;
+}
 
-  #title-event {
-    padding-top: 12px;
-    margin: 12px;
-    font-weight: bold;
-    font-size: 18px;
-  }
+a {
+  margin-left: 12px;
+}
 
-  #summary-event {
-    padding-top: 18px;
-    margin: 12px;
-  }
+#title-event {
+  margin-top: 20px;
+  margin: 12px;
+  font-weight: bold;
+  font-size: 18px;
+}
+.a {
+  margin-bottom: 12px;
+}
+.event  {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 12px;
+  background-color: rgb(36, 38, 39);
+  color: white;
+  margin-top: 30px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
 
-  #datetime-event {
-    padding-bottom: 12px;
-    margin: 12px;
-  }
+.footer-container {  /* New container element */
+  display: flex;
+  justify-content: center;
+  width: 100%;  /* Span the entire width */
+}
 
-  .event  {
-    border-radius: 12px;
-    background-color: rgb(36, 38, 39);
-    color: white;
-    margin-top: 30px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-  }
-  
-  .footer-container {  /* New container element */
-    display: flex;
-    justify-content: center;
-    width: 100%;  /* Span the entire width */
-
-  }
-  
   .footer {
     background-color: #131314;
     padding: 1rem;
