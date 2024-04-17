@@ -18,6 +18,12 @@
 </div>
   <div id="event_container">
     <p id="titel-event">Sortera händelser</p>
+    <form id="show-events-form" method="post" action="/show-events">
+      <select name="municipality">
+        <% municipalities.forEach(municipality => { %>
+          <option value="<%= municipality.name %>"><%= municipality.name %></option>
+        <% }); %>
+      </select>
     <button id="button-events" type="submit" form="show-events-form">
       <span>Visa</span>
     </button>
@@ -30,7 +36,7 @@
           <p id="list-event"><%= event.summary %></p>
           <p id="list-event"><%= event.datetime %></p>
           <p id="list-event"><%= event.location.name %><a id="karta" href="#" onclick="oppnaGoogleMaps('<%=event.location.gps%>')">Se på kartan</a></p>
-          <a id="karta" href="https://polisen.se/<%= event.url %>">Läs mer</a>
+          <a id="karta" href="https://polisen.se/<%= event.url %>" target="_blank">Läs mer</a>
         </div>
       <% }); %>
     <% } else { %>
@@ -62,7 +68,7 @@
   });
   function oppnaGoogleMaps(gpsCoordinates) {
     const googleMapsUrl = `https://www.google.com/maps/@${gpsCoordinates},14z?entry=ttu`;
-    window.location.href = googleMapsUrl;
+    window.open(googleMapsUrl, '_blank');
   }
   </script>
 </body>

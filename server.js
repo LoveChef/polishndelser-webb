@@ -1,16 +1,24 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const fetch = require('cross-fetch'); // Import node-fetch
 
 const app = express();
 
-let eventsData = null; // Store fetched events data
+let eventsData = null;
+let municipalities = null
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
+
+mongoose.connect('mongodb+srv://love:love@energidryck.vves83k.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('Could not connect to MongoDB', err));
+
+
 
 // Fetch events on server startup (optional)
 (async () => {
@@ -29,10 +37,9 @@ app.use(express.static(__dirname + '/public'));
       }
 
       if (event.location && event.location.name) {
-        event.locationName = event.location.name; // Add "locationName" property
+        event.locationName = event.location.name; 
       }
 
-      // Add emoji based on event type (Unicode characters)
       switch (event.type) {
         case 'Rån':
           event.emoji = '🔫';
@@ -90,6 +97,33 @@ app.use(express.static(__dirname + '/public'));
     console.error('Error fetching events:', error);
   }
 })();
+
+
+
+(async () => {
+  try {
+    const client = await MongoClient.connect(url);
+    const db = client.db(dbName);
+    const collection = db.collection('municipalities');
+    municipalities = await collection.find().toArray();
+    client.close();
+  } catch (error) {
+    console.error('Error fetching municipalities:', error);
+  }
+})();
+
+app.get('/', async (req, res) => {
+  res.render('index', { events: eventsData, municipalities: municipalities, showEvents: false });
+});
+
+app.post('/show-events', async (req, res) => {
+  const selectedMunicipality = req.body.municipality;
+  
+  // Filter events based on selected municipality
+  const filteredEvents = eventsData.filter(event => event.locationName === selectedMunicipality);
+  
+  res.render('index', { events: filteredEvents, municipalities: municipalities, showEvents: true });
+});
 
 app.get('/', async (req, res) => {
   res.render('index', { events: eventsData, showEvents: false }); // Initially hide events
