@@ -1,12 +1,10 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const fetch = require('cross-fetch'); // Import node-fetch
 
 const app = express();
 
-let eventsData = null;
-let municipalities = null
+let eventsData = null; // Store fetched events data
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -14,10 +12,27 @@ app.set('views', 'views');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 
-mongoose.connect('mongodb+srv://love:love@energidryck.vves83k.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('Could not connect to MongoDB', err));
+const mongoose = require('mongoose');
 
+// ... other imports
+
+const connectDb = async () => {
+  try {
+    await mongoose.connect('mongodb+srv://love:love@energidryck.vves83k.mongodb.net/?retryWrites=true&w=majority&appName=Energidryck', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('MongoDB connected');
+  } catch (error) {
+    console.error('Error connecting to MongoDB:', error);
+    process.exit(1); // Exit the application on error
+  }
+};
+
+// Call connectDb function to connect to MongoDB before starting the server
+connectDb();
+
+// ... other server logic
 
 
 // Fetch events on server startup (optional)
@@ -37,9 +52,10 @@ mongoose.connect('mongodb+srv://love:love@energidryck.vves83k.mongodb.net/?retry
       }
 
       if (event.location && event.location.name) {
-        event.locationName = event.location.name; 
+        event.locationName = event.location.name; // Add "locationName" property
       }
 
+      // Add emoji based on event type (Unicode characters)
       switch (event.type) {
         case 'Rån':
           event.emoji = '🔫';
@@ -98,35 +114,39 @@ mongoose.connect('mongodb+srv://love:love@energidryck.vves83k.mongodb.net/?retry
   }
 })();
 
-
-
-(async () => {
+async function fetchMunicipalities() {
   try {
-    const client = await MongoClient.connect(url);
-    const db = client.db(dbName);
-    const collection = db.collection('municipalities');
-    municipalities = await collection.find().toArray();
-    client.close();
+    // Anslut till rätt samling i MongoDB-databasen
+    const db = mongoose.connection.db;
+    const collection = db.collection('kommuner');
+
+    // Hämta alla dokument från samlingen och returnera en array av kommunnamn
+    const municipalities = await collection.find().toArray();
+    return municipalities.map(municipality => municipality.name);
   } catch (error) {
     console.error('Error fetching municipalities:', error);
+    return [];
   }
+}
+
+
+// ...
+
+(async () => {
+  // ... existing event fetching logic
+  const municipalities = await fetchMunicipalities();
+  // ... use municipalities data for sorting or displaying options
 })();
 
-app.get('/', async (req, res) => {
-  res.render('index', { events: eventsData, municipalities: municipalities, showEvents: false });
-});
-
-app.post('/show-events', async (req, res) => {
-  const selectedMunicipality = req.body.municipality;
-  
-  // Filter events based on selected municipality
-  const filteredEvents = eventsData.filter(event => event.locationName === selectedMunicipality);
-  
-  res.render('index', { events: filteredEvents, municipalities: municipalities, showEvents: true });
-});
 
 app.get('/', async (req, res) => {
-  res.render('index', { events: eventsData, showEvents: false }); // Initially hide events
+  try {
+    const municipalities = await fetchMunicipalities();
+    res.render('index', { events: eventsData, showEvents: true, municipalities });
+  } catch (error) {
+    console.error('Error fetching municipalities:', error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 app.post('/show-events', async (req, res) => { // Handle button click
@@ -210,6 +230,33 @@ app.post('/show-events', async (req, res) => { // Handle button click
   }
   res.render('index', { events: eventsData, showEvents: true }); // Show events now
 });
+
+// server.js
+
+app.post('/upload-municipalities', async (req, res) => {
+  // Access uploaded municipalities from request body
+  const { municipalities } = req.body;
+
+  try {
+    // Kontrollera om municipalities är en sträng, om det är så, konvertera till en array
+    const municipalityArray = Array.isArray(municipalities) ? municipalities : [municipalities];
+
+    // Anslut till rätt databas och samling
+    const db = mongoose.connection.db;
+    const collection = db.collection('kommuner');
+
+    // Insertera kommunerna i rätt samling
+    await collection.insertMany(municipalityArray.map(name => ({ name })));
+
+    res.json({ message: 'Municipalities uploaded successfully!' });
+  } catch (error) {
+    console.error('Error uploading municipalities:', error);
+    res.status(500).json({ message: 'Error uploading municipalities' });
+  }
+});
+
+
+
 
 app.use((req, res, next) => {
   res.status(404).send('<h1>Page not found</h1>');

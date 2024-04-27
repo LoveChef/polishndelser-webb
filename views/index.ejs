@@ -18,12 +18,12 @@
 </div>
   <div id="event_container">
     <p id="titel-event">Sortera händelser</p>
-    <form id="show-events-form" method="post" action="/show-events">
-      <select name="municipality">
-        <% municipalities.forEach(municipality => { %>
-          <option value="<%= municipality.name %>"><%= municipality.name %></option>
-        <% }); %>
-      </select>
+    <select id="municipality-select">
+      <option value="">Alla kommuner</option>
+      <% municipalities.forEach(municipality => { %>
+        <option value="<%= municipality %>"><%= municipality %></option>
+      <% }); %>
+    </select>    
     <button id="button-events" type="submit" form="show-events-form">
       <span>Visa</span>
     </button>
@@ -36,15 +36,18 @@
           <p id="list-event"><%= event.summary %></p>
           <p id="list-event"><%= event.datetime %></p>
           <p id="list-event"><%= event.location.name %><a id="karta" href="#" onclick="oppnaGoogleMaps('<%=event.location.gps%>')">Se på kartan</a></p>
-          <a id="karta" href="https://polisen.se/<%= event.url %>" target="_blank">Läs mer</a>
+          <a id="karta" href="https://polisen.se/<%= event.url %>">Läs mer</a>
         </div>
       <% }); %>
     <% } else { %>
       <p>Hämtar händelser...</p>
     <% } %>
   </div>
-
-
+  <form action="/upload-municipalities" method="post">
+    <label for="municipalities">Kommuner (lista separerade med komma):</label>
+    <textarea id="municipalities" name="municipalities" rows="5"></textarea>
+    <button type="submit">Ladda upp</button>
+  </form>
   <div class="footer">
     <p id="title-p">Love Ekelöw</p>
     <p>All rights reserved</p>
@@ -68,7 +71,7 @@
   });
   function oppnaGoogleMaps(gpsCoordinates) {
     const googleMapsUrl = `https://www.google.com/maps/@${gpsCoordinates},14z?entry=ttu`;
-    window.open(googleMapsUrl, '_blank');
+    window.location.href = googleMapsUrl;
   }
   </script>
 </body>
