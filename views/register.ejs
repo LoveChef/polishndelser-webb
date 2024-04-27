@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <%- include('../partials/head.ejs') %>
+</head>
+<body>
+  <h1>Registrera</h1>
+  <form action="/register" method="POST">
+    <label for="name">Namn:</label>
+    <input type="text" id="name" name="name" required>
+    <label for="email">E-post:</label>
+    <input type="email" id="email" name="email" required>
+    <label for="password">Lösenord:</label>
+    <input type="password" id="password" name="password" required>
+    <button type="submit">Registrera</button>
+  </form>
+</body>
+</html>

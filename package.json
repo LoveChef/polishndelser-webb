@@ -1,10 +1,8 @@
 {
   "dependencies": {
-    "cross-fetch": "^4.0.0",
-    "ejs": "^3.1.9",
+    "bcrypt": "^5.1.1",
+    "ejs": "^3.1.10",
     "express": "^4.19.2",
-    "mongodb": "^6.5.0",
-    "mongoose": "^8.3.2",
-    "node-fetch": "^3.3.2"
+    "mongoose": "^8.3.2"
   }
 }
