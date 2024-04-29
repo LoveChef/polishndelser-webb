@@ -1,16 +1,53 @@
 body {
     background-color: #212121;
     font-family: Arial;
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    margin: 0;
 }
 
 h1 {
     color: white;
 }
 
+h2 {
+    margin-top: 250px;
+    color: white;
+}
+
 .skapa {
+    display: flex;
+    justify-content: space-around; /* Lägg till detta för att länkarna ska vara i en rad */
+    text-align: center;
+    margin-top: 20px; /* Minska avståndet från logga in-formuläret */
     background-color: #2d2d2d;
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 100px;
+    border-radius: 20px;
+}
+
+.skapatext {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.skapatext a {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    margin: 5px; /* Lägg till lite mellanrum mellan länkarna */
+}
+
+.skapatext a:hover {
+    color: rgb(190, 190, 190);
+}
+
+input {
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
