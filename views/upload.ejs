@@ -6,7 +6,18 @@
 <body>
   <h1>Ladda upp en bild</h1>
   <form action="/upload" method="POST" enctype="multipart/form-data">
-    <input type="file" name="image" accept="image/*" required>
+    <div>
+      <label for="title">Titel:</label>
+      <input type="text" id="title" name="title" required>
+    </div>
+    <div>
+      <label for="content">Innehåll:</label>
+      <textarea id="content" name="content" required></textarea>
+    </div>
+    <div>
+      <label for="image">Bild:</label>
+      <input type="file" id="image" name="image" accept="image/*" required>
+    </div>
     <button type="submit">Ladda upp</button>
   </form>
 </body>

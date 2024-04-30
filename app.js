@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
 const bcrypt = require('bcrypt');
+const multer = require('multer');
 const Post = require('./models/post.js');
 const User = require('./models/user.js');
+const router = express.Router();
 
 
 const app = express();
@@ -54,6 +56,43 @@ app.get('/register', (req, res) => {
 app.get('/upload', (req, res) => {
   res.render('upload');
 });
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads'); // Ange mappen där du vill spara bilderna
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname); // Använd ett unikt filnamn för att undvika kollisioner
+  }
+});
+
+const upload = multer({ storage: storage });
+
+// Hantera POST-begäran för att ladda upp en bild
+router.post('/upload', upload.single('image'), async (req, res) => {
+  try {
+    // Skapa en ny post baserad på det som skickats från formuläret
+    const newPost = new Post({
+      title: req.body.title,
+      content: req.body.content,
+      image: req.file.filename // Sparar filnamnet för den uppladdade bilden i databasen
+    });
+
+    // Spara den nya posten i databasen
+    await newPost.save();
+
+    // Redirect användaren någonstans efter att posten har sparats, till exempel till startsidan
+    res.redirect('/');
+
+  } catch (error) {
+    console.error('Error uploading post:', error);
+    // Hantera fel här, till exempel genom att rendera en felmeddelandesida
+    res.render('error', { error: 'Error uploading post' });
+  }
+});
+app.use('/', router);
+
+
 
 app.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
