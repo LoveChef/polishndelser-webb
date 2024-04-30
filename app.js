@@ -51,6 +51,10 @@ app.get('/register', (req, res) => {
   res.render('register');
 });
 
+app.get('/upload', (req, res) => {
+  res.render('upload');
+});
+
 app.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -87,5 +91,5 @@ app.get('/posts', async (req, res) => {
   });
 
 // Start server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Servern är igång på port ${PORT}`));
