@@ -66,7 +66,7 @@ const storage = multer.diskStorage({
   }
 });
 
-const upload = multer({ storage: storage });
+const upload = multer();
 
 // Hantera POST-begäran för att ladda upp en bild
 router.post('/upload', upload.single('image'), async (req, res) => {
@@ -75,7 +75,10 @@ router.post('/upload', upload.single('image'), async (req, res) => {
     const newPost = new Post({
       title: req.body.title,
       content: req.body.content,
-      image: req.file.filename // Sparar filnamnet för den uppladdade bilden i databasen
+      image: {
+        data: req.file.buffer, // Binär data för den uppladdade bilden
+        contentType: req.file.mimetype // Typ av fil
+      }
     });
 
     // Spara den nya posten i databasen
@@ -90,9 +93,8 @@ router.post('/upload', upload.single('image'), async (req, res) => {
     res.render('error', { error: 'Error uploading post' });
   }
 });
+
 app.use('/', router);
-
-
 
 app.post('/register', async (req, res) => {
   const { name, email, password } = req.body;

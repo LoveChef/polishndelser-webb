@@ -4,16 +4,24 @@
     <%- include('../partials/head.ejs') %>
 </head>
 <body>
-  <h1>All Posts</h1>
+  
   <ul>
+    <a href="/upload">
+      <button href="/upload" id="ladda">Ladda upp</button>
+    </a>
     <% posts.forEach(post => { %>
-      <li>
+    <div class="posts-container">
+      <div class="post">
         <h2><%= post.title %></h2>
         <p><%= post.content %></p>
-        <p>Author: <%= post.author %></p>
-        <p>Posted on: <%= post.createdAt.toDateString() %></p>
-      </li>
+        <% if (post.image && post.image.data) { %>
+          <img id="post-bild" src="data:<%= post.image.contentType %>;base64,<%= post.image.data.toString('base64') %>" alt="Bild">
+        <% } %>
+      </div>
+    </div>
     <% }) %>
+    
+    
   </ul>
 </body>
 </html>
