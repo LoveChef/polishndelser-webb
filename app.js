@@ -131,6 +131,58 @@ app.get('/posts', async (req, res) => {
     res.redirect('/posts');
   });
 
+  // Lägg till en ny route för admin-sidan
+app.get('/admin-login', (req, res) => {
+  res.render('admin-login');
+});
+
+// Implementera inloggning för admin-sidan
+app.post('/admin-login', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    // Kontrollera användarnamn och lösenord
+    if (username === 'admin' && password === 'admin') {
+      // Om inloggningen är framgångsrik, skicka användaren till admin-panelen
+      res.redirect('/admin-panel');
+    } else {
+      // Om inloggningen misslyckas, rendera admin-login-sidan med ett felmeddelande
+      res.render('admin-login', { error: 'Felaktigt användarnamn eller lösenord.' });
+    }
+  } catch (err) {
+    console.error(err);
+    res.render('admin-login', { error: 'Ett fel uppstod.' });
+  }
+});
+
+// Skapa en admin-panel där administratören kan redigera inlägg
+app.get('/admin-panel', async (req, res) => {
+  try {
+    // Hämta alla inlägg från databasen
+    const posts = await Post.find().sort({ createdAt: 'desc' });
+    res.render('admin-panel', { posts });
+  } catch (err) {
+    console.error(err);
+    res.render('admin-panel', { error: 'Ett fel uppstod.' });
+  }
+});
+
+// Implementera funktionen för att redigera inlägg
+app.post('/admin-panel/edit-post/:id', async (req, res) => {
+  const postId = req.params.id;
+  const { title, content } = req.body;
+
+  try {
+    // Uppdatera inlägget i databasen med de nya uppgifterna
+    await Post.findByIdAndUpdate(postId, { title, content });
+    res.redirect('/admin-panel');
+  } catch (err) {
+    console.error(err);
+    res.render('admin-panel', { error: 'Ett fel uppstod vid redigering av inlägget.' });
+  }
+});
+
+
 // Start server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Servern är igång på port ${PORT}`));

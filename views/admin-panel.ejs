@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <%- include('../partials/head.ejs') %>
+</head>
+<body>
+  <h1>Admin Panel</h1>
+  <ul>
+    <% posts.forEach(post => { %>
+      <div class="posts-container">
+        <div class="post">
+          <form action="/admin-panel/edit-post/<%= post._id %>" method="POST">
+            <label for="title">Titel:</label>
+            <input type="text" id="title" name="title" value="<%= post.title %>" required>
+            <label for="content">Innehåll:</label>
+            <textarea id="content" name="content" required><%= post.content %></textarea>
+            <button type="submit">Spara ändringar</button>
+          </form>
+        </div>
+      </div>
+    <% }) %>
+  </ul>
+
+</body>
+</html>

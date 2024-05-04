@@ -4,15 +4,15 @@
     <%- include('../partials/head.ejs') %>
 </head>
 <body>
-  <h1>NTI FORUM</h1>
-  <h2>Logga in</h2>
-  <div class="skapa"><form id="login"action="/login" method="POST">
-    <br><label for="email">Email:</label>
-    <br><input type="email" id="email" name="email" required>
+  <h1>Admin Login</h1>
+  <div class="skapa"><form id="login" action="/admin-login" method="POST">
+    <br><label for="username">Användarnamn:</label>
+    <br><input type="text" id="username" name="username" required>
     <br><label for="password" id="lösen">Lösenord:</label>
     <br><input type="password" id="password" name="password" required>
     <br><button class="button-17" type="submit">Logga in</button>
   </form>
   </div>
+
 </body>
 </html>
