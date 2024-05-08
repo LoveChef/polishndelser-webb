@@ -40,8 +40,7 @@ app.post('/login', async (req, res) => {
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) return res.render('login', { error: 'Felaktigt lösenord.' });
 
-    // User authenticated, handle success (e.g., redirect to profile)
-    res.redirect('/posts'); // Replace with your desired route after login
+    res.redirect('/posts');
 
   } catch (err) {
     console.error(err);
@@ -59,10 +58,10 @@ app.get('/upload', (req, res) => {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads'); // Ange mappen där du vill spara bilderna
+    cb(null, 'uploads');
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + '-' + file.originalname); // Använd ett unikt filnamn för att undvika kollisioner
+    cb(null, Date.now() + '-' + file.originalname);
   }
 });
 
@@ -76,20 +75,17 @@ router.post('/upload', upload.single('image'), async (req, res) => {
       title: req.body.title,
       content: req.body.content,
       image: {
-        data: req.file.buffer, // Binär data för den uppladdade bilden
-        contentType: req.file.mimetype // Typ av fil
+        data: req.file.buffer,
+        contentType: req.file.mimetype 
       }
     });
 
-    // Spara den nya posten i databasen
     await newPost.save();
 
-    // Redirect användaren någonstans efter att posten har sparats, till exempel till startsidan
     res.redirect('/');
 
   } catch (error) {
     console.error('Error uploading post:', error);
-    // Hantera fel här, till exempel genom att rendera en felmeddelandesida
     res.render('error', { error: 'Error uploading post' });
   }
 });
@@ -131,22 +127,19 @@ app.get('/posts', async (req, res) => {
     res.redirect('/posts');
   });
 
-  // Lägg till en ny route för admin-sidan
 app.get('/admin-login', (req, res) => {
   res.render('admin-login');
 });
 
-// Implementera inloggning för admin-sidan
+
+// gör så att det endast går att logga in med admin admin på panelen
 app.post('/admin-login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    // Kontrollera användarnamn och lösenord
     if (username === 'admin' && password === 'admin') {
-      // Om inloggningen är framgångsrik, skicka användaren till admin-panelen
       res.redirect('/admin-panel');
     } else {
-      // Om inloggningen misslyckas, rendera admin-login-sidan med ett felmeddelande
       res.render('admin-login', { error: 'Felaktigt användarnamn eller lösenord.' });
     }
   } catch (err) {
@@ -155,10 +148,8 @@ app.post('/admin-login', async (req, res) => {
   }
 });
 
-// Skapa en admin-panel där administratören kan redigera inlägg
 app.get('/admin-panel', async (req, res) => {
   try {
-    // Hämta alla inlägg från databasen
     const posts = await Post.find().sort({ createdAt: 'desc' });
     res.render('admin-panel', { posts });
   } catch (err) {
@@ -167,13 +158,11 @@ app.get('/admin-panel', async (req, res) => {
   }
 });
 
-// Implementera funktionen för att redigera inlägg
 app.post('/admin-panel/edit-post/:id', async (req, res) => {
   const postId = req.params.id;
   const { title, content } = req.body;
 
   try {
-    // Uppdatera inlägget i databasen med de nya uppgifterna
     await Post.findByIdAndUpdate(postId, { title, content });
     res.redirect('/admin-panel');
   } catch (err) {
@@ -183,6 +172,5 @@ app.post('/admin-panel/edit-post/:id', async (req, res) => {
 });
 
 
-// Start server
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Servern är igång på port ${PORT}`));
