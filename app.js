@@ -172,5 +172,5 @@ app.post('/admin-panel/edit-post/:id', async (req, res) => {
 });
 
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3005;
 app.listen(PORT, () => console.log(`Servern är igång på port ${PORT}`));

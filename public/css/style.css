@@ -174,3 +174,6 @@ p {
     will-change: transform, opacity;
     z-index: 0;
   }
+  .login-text-container {
+    margin-top: 100px;
+  }
